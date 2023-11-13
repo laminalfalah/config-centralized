@@ -4,6 +4,10 @@ spring:
 #  cloud:
 #    config:
 #      enabled: false
+  boot:
+    admin:
+      ui:
+        title: ${spring.application.name}
   main:
     allow-bean-definition-overriding: true
   output:
