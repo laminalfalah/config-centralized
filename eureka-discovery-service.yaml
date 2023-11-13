@@ -76,7 +76,7 @@ management:
     add-application-context-header: true
   zipkin:
     tracing:
-      endpoint: http://localhost:9411/api/v2/spans
+      endpoint: http://10.128.24.11:9411/api/v2/spans
 
 eureka:
   client:
