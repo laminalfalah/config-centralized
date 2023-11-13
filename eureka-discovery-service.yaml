@@ -1,6 +1,6 @@
 spring:
-  application:
-    name: '@project.name@'
+  # application:
+    # name: '@project.name@'
   cloud:
     config:
       enabled: false
