@@ -1,8 +1,11 @@
 spring:
+#  application:
+#    name: '@project.name@'
   cloud:
     config:
       discovery:
         enabled: true
+#      enabled: false
     gateway:
       discovery:
         locator:
