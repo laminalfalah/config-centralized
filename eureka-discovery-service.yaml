@@ -97,5 +97,5 @@ eureka:
     rate-limiter-enabled: true
   dashboard:
     path: /dashboard
-  environment: ${spring.profiles.active:k8s}
+  environment: ${spring.profiles.active:default}
   datacenter: ${spring.application.name}
