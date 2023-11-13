@@ -35,6 +35,12 @@ spring:
             - Path=/v3/api-docs/**
           filters:
             - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+        - id: sample
+          uri: lb://sample
+          predicates:
+            - Path=/sample
+          filters:
+            - RewritePath=/sample/(?<path>.*), /$\{path}
     openfeign:
       circuitbreaker:
         enabled: true
