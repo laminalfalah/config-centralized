@@ -135,7 +135,7 @@ management:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://10.128.24.22:8761/eureka
   instance:
     appname: ${spring.application.name}
     prefer-ip-address: true
