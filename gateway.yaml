@@ -1,7 +1,6 @@
 spring:
   cloud:
     config:
-      enabled: false
       discovery:
         enabled: true
     gateway:
