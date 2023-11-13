@@ -24,7 +24,7 @@ server:
   forward-headers-strategy: framework
   http2:
     enabled: true
-  port: 8090
+  port: 8080
   shutdown: graceful
 
 management:
@@ -126,4 +126,3 @@ springdoc:
     with-credentials: true
   writer-with-default-pretty-printer: true
   writer-with-order-by-keys: true
-  
