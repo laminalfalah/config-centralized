@@ -1,0 +1,176 @@
+spring:
+  cloud:
+    config:
+      enabled: false
+      discovery:
+        enabled: true
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+          predicates:
+            - name: Path
+              args:
+                pattern: "'/' + serviceId.toLowerCase() + '/**'"
+          filters:
+            - name: RewritePath
+              args:
+                regexp: "'/' + serviceId.toLowerCase() + '/(?<remaining>.*)'"
+                replacement: "'/${remaining}'"
+      httpclient:
+        compression: true
+        pool:
+          metrics: true
+      loadbalancer:
+        use404: true
+      metrics:
+        enabled: true
+      routes:
+        - id: openapi
+          uri: lb://${spring.application.name}
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+    openfeign:
+      circuitbreaker:
+        enabled: true
+      client:
+        config:
+          default:
+            connect-timeout: 60000
+            read-timeout: 60000
+            logger-level: full
+        refresh-enabled: true
+      compression:
+        response:
+          enabled: true
+        request:
+          enabled: true
+      encoder:
+        charset-from-content-type: true
+  data:
+    redis:
+      client-type: lettuce
+      url: redis://:Test1234@10.128.24.14:6379
+  main:
+    allow-bean-definition-overriding: true
+#    allow-circular-references: true
+#    lazy-initialization: true
+  output:
+    ansi:
+      enabled: always
+
+logging:
+  file:
+    path: data/logs
+    name: ${logging.file.path}/${spring.application.name}.log
+
+server:
+  compression:
+    enabled: true
+  error:
+    whitelabel:
+      enabled: false
+  forward-headers-strategy: framework
+  http2:
+    enabled: true
+  port: 8080
+  shutdown: graceful
+
+management:
+  endpoint:
+    configprops:
+      show-values: always
+    env:
+      post:
+        enabled: true
+      show-values: always
+    health:
+      group:
+        liveness:
+          - include:
+              - livenessState
+            show-components: always
+        readiness:
+          - include:
+              - readinessState
+            show-components: always
+      probes:
+        add-additional-paths: true
+        enabled: true
+      show-components: always
+      show-details: always
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: '*'
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  info:
+    env:
+      enabled: true
+    git:
+      mode: full
+    java:
+      enabled: true
+    os:
+      enabled: true
+  metrics:
+    enable:
+      all: true
+  server:
+    add-application-context-header: true
+  zipkin:
+    tracing:
+      endpoint: http://10.128.24.11:9411/api/v2/spans
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://10.128.24.20:8080/eureka
+  instance:
+    appname: ${spring.application.name}
+    prefer-ip-address: true
+    health-check-url-path: ${management.endpoints.web.base-path:/actuator}/health
+    status-page-url-path: ${management.endpoints.web.base-path:/actuator}/info
+    hostname: ${spring.application.name}
+
+springdoc:
+  api-docs:
+    groups:
+      enabled: true
+    resolve-schema-properties: true
+  cache:
+    disabled: true
+  disable-i18n: true
+  nullable-request-parameter-enabled: true
+  override-with-generic-response: true
+  pre-loading-enabled: true
+  swagger-ui:
+    deep-linking: true
+    default-model-rendering: model
+    disable-swagger-default-url: true
+    display-operation-id: true
+    display-request-duration: true
+    doc-expansion: none
+    groups-order: asc
+    operations-sorter: alpha
+    query-config-enabled: true
+    persist-authorization: true
+    show-common-extensions: true
+    show-extensions: true
+    syntax-highlight:
+      activated: true
+    tags-sorter: alpha
+    try-it-out-enabled: true
+    use-root-path: true
+    with-credentials: true
+    urls-primary-name: openapi
+  writer-with-default-pretty-printer: true
+  writer-with-order-by-keys: true
