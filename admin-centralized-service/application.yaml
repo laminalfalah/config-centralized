@@ -88,3 +88,42 @@ eureka:
     prefer-ip-address: true
     health-check-url-path: ${management.endpoints.web.base-path:/actuator}/health
     status-page-url-path: ${management.endpoints.web.base-path:/actuator}/info
+
+springdoc:
+  api-docs:
+    groups:
+      enabled: true
+    resolve-schema-properties: true
+  cache:
+    disabled: true
+  default-flat-param-object: true
+  disable-i18n: true
+  model-converters:
+    pageable-converter:
+      enabled: true
+    polymorphic-converter:
+      enabled: true
+  nullable-request-parameter-enabled: true
+  pre-loading-enabled: true
+  show-actuator: true
+  sort-converter:
+    enabled: true
+  swagger-ui:
+    deep-linking: true
+    disable-swagger-default-url: true
+    doc-expansion: none
+    enabled: false
+    groups-order: asc
+    operations-sorter: alpha
+    persist-authorization: true
+    query-config-enabled: true
+    show-common-extensions: true
+    show-extensions: true
+    syntax-highlight:
+      activated: true
+    tags-sorter: alpha
+    try-it-out-enabled: true
+    with-credentials: true
+  writer-with-default-pretty-printer: true
+  writer-with-order-by-keys: true
+  
