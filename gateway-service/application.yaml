@@ -8,17 +8,17 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true
+          enabled: false
         lower-case-service-id: true
-        predicates:
-          - name: Path
-            args:
-              pattern: "'/' + serviceId.toLowerCase() + '/**'"
-        filters:
-          - name: RewritePath
-            args:
-              regexp: "'/' + serviceId.toLowerCase() + '/(?<path>.*)'"
-              replacement: "'/${path}'"
+        # predicates:
+        #   - name: Path
+        #     args:
+        #       pattern: "'/' + serviceId.toLowerCase() + '/**'"
+        # filters:
+        #   - name: RewritePath
+        #     args:
+        #       regexp: "'/' + serviceId.toLowerCase() + '/(?<path>.*)'"
+        #       replacement: "'/${path}'"
       httpclient:
         compression: true
         pool:
@@ -34,6 +34,18 @@ spring:
             - Path=/v3/api-docs/**
           filters:
             - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+        - id: config
+          uri: lb://config-centralized-service
+          predicates:
+            - Path=/config/**
+          filters:
+            - RewritePath=/config/(?<path>.*), /$\{path}
+        - id: admin
+          uri: lb://admin-centralized-service
+          predicates:
+            - Path=/admin/**
+          filters:
+            - RewritePath=/admin/(?<path>.*), /$\{path}
         # - id: sample
         #   uri: lb://sample
         #   predicates:
