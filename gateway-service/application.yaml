@@ -5,21 +5,20 @@ spring:
     config:
       discovery:
         enabled: true
-#      enabled: false
     gateway:
       discovery:
         locator:
-          enabled: false
-#          lower-case-service-id: true
-#          predicates:
-#            - name: Path
-#              args:
-#                pattern: "'/' + serviceId.toLowerCase() + '/**'"
-#          filters:
-#            - name: RewritePath
-#              args:
-#                regexp: "'/' + serviceId.toLowerCase() + '/(?<remaining>.*)'"
-#                replacement: "'/${remaining}'"
+          enabled: true
+         lower-case-service-id: true
+         predicates:
+           - name: Path
+             args:
+               pattern: "'/' + serviceId.toLowerCase() + '/**'"
+         filters:
+           - name: RewritePath
+             args:
+               regexp: "'/' + serviceId.toLowerCase() + '/(?<remaining>.*)'"
+               replacement: "'/${remaining}'"
       httpclient:
         compression: true
         pool:
@@ -35,12 +34,12 @@ spring:
             - Path=/v3/api-docs/**
           filters:
             - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
-        - id: sample
-          uri: lb://sample
-          predicates:
-            - Path=/sample/**
-          filters:
-            - RewritePath=/sample/(?<path>.*), /$\{path}
+        # - id: sample
+        #   uri: lb://sample
+        #   predicates:
+        #     - Path=/sample/**
+        #   filters:
+        #     - RewritePath=/sample/(?<path>.*), /$\{path}
     openfeign:
       circuitbreaker:
         enabled: true
