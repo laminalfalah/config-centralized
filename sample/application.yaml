@@ -1,82 +1,6 @@
 spring:
-#  application:
-#    name: '@project.name@'
-  cloud:
-    config:
-      discovery:
-        enabled: true
-    gateway:
-      discovery:
-        locator:
-          enabled: false
-        lower-case-service-id: true
-        # predicates:
-        #   - name: Path
-        #     args:
-        #       pattern: "'/' + serviceId.toLowerCase() + '/**'"
-        # filters:
-        #   - name: RewritePath
-        #     args:
-        #       regexp: "'/' + serviceId.toLowerCase() + '/(?<path>.*)'"
-        #       replacement: "'/${path}'"
-      httpclient:
-        compression: true
-        pool:
-          metrics: true
-      loadbalancer:
-        use404: true
-      metrics:
-        enabled: true
-      routes:
-        - id: openapi
-          uri: lb://${spring.application.name}
-          predicates:
-            - Path=/v3/api-docs/**
-          filters:
-            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
-        - id: config
-          uri: lb://config-centralized-service
-          predicates:
-            - Path=/config/**
-          filters:
-            - RewritePath=/config/(?<path>.*), /$\{path}
-        - id: admin
-          uri: lb://admin-centralized-service
-          predicates:
-            - Path=/admin/**
-          filters:
-            - RewritePath=/admin/(?<path>.*), /$\{path}
-        - id: sample
-          uri: lb://sample
-          predicates:
-            - Path=/sample/**
-          filters:
-            - RewritePath=/sample/(?<path>.*), /$\{path}
-    openfeign:
-      circuitbreaker:
-        enabled: true
-      client:
-        config:
-          default:
-            connect-timeout: 60000
-            read-timeout: 60000
-            logger-level: full
-        refresh-enabled: true
-      compression:
-        response:
-          enabled: true
-        request:
-          enabled: true
-      encoder:
-        charset-from-content-type: true
-  data:
-    redis:
-      client-type: lettuce
-      url: redis://:Test1234@10.128.24.14:6379
   main:
     allow-bean-definition-overriding: true
-#    allow-circular-references: true
-#    lazy-initialization: true
   output:
     ansi:
       enabled: always
@@ -171,6 +95,7 @@ springdoc:
   nullable-request-parameter-enabled: true
   override-with-generic-response: true
   pre-loading-enabled: true
+  show-actuator: true
   swagger-ui:
     deep-linking: true
     default-model-rendering: model
@@ -178,6 +103,7 @@ springdoc:
     display-operation-id: true
     display-request-duration: true
     doc-expansion: none
+    enabled: false
     groups-order: asc
     operations-sorter: alpha
     query-config-enabled: true
@@ -190,6 +116,5 @@ springdoc:
     try-it-out-enabled: true
     use-root-path: true
     with-credentials: true
-    urls-primary-name: openapi
   writer-with-default-pretty-printer: true
   writer-with-order-by-keys: true
