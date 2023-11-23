@@ -18,7 +18,7 @@ spring:
           - name: RewritePath
             args:
               regexp: "'/' + serviceId.toLowerCase() + '/(?<path>.*)'"
-              replacement: "'/$\{path}'"
+              replacement: "'/${path}'"
       httpclient:
         compression: true
         pool:
