@@ -114,19 +114,23 @@ springdoc:
     enabled: true
   swagger-ui:
     deep-linking: true
+    default-model-rendering: model
     disable-swagger-default-url: true
+    display-operation-id: true
+    display-request-duration: true
     doc-expansion: none
     enabled: false
     groups-order: asc
     operations-sorter: alpha
-    persist-authorization: true
     query-config-enabled: true
+    persist-authorization: true
     show-common-extensions: true
     show-extensions: true
     syntax-highlight:
       activated: true
     tags-sorter: alpha
     try-it-out-enabled: true
+    use-root-path: true
     with-credentials: true
   writer-with-default-pretty-printer: true
   writer-with-order-by-keys: true
