@@ -52,6 +52,12 @@ spring:
             - Path=/sample/**
           filters:
             - RewritePath=/sample/(?<path>.*), /$\{path}
+        - id: example
+          url: lb://example
+          predicates:
+            - Path=/example
+          filters:
+            - RewritePath=/example/(?<path>.*), /$\{path}
     openfeign:
       circuitbreaker:
         enabled: true
