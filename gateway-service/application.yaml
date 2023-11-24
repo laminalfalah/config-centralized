@@ -53,9 +53,9 @@ spring:
           filters:
             - RewritePath=/sample/(?<path>.*), /$\{path}
         - id: example
-          url: lb://example
+          uri: lb://example
           predicates:
-            - Path=/example
+            - Path=/example/**
           filters:
             - RewritePath=/example/(?<path>.*), /$\{path}
     openfeign:
