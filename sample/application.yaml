@@ -103,7 +103,7 @@ springdoc:
     display-operation-id: true
     display-request-duration: true
     doc-expansion: none
-    enabled: false
+    enabled: true
     groups-order: asc
     operations-sorter: alpha
     query-config-enabled: true
